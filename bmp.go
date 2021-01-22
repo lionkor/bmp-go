@@ -1,9 +1,24 @@
 package bmp
 
-type BitmapHeader struct {
-    data [2 + 4 + 2 + 2 + 4]byte
-}
+import (
+    "os"
+)
 
 type Bitmap struct {
-    header BitmapHeader
+    data []byte
+    size int64
+}
+
+func (b Bitmap) Load(filename string) error {
+    file, err := os.Open(filename)
+    if err != nil {
+        return err
+    }
+    info, err := file.Stat()
+    if err != nil {
+        return err
+    }
+    b.size = info.Size()
+    b.data = make([]byte, b.size)
+    return nil
 }
