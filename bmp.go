@@ -22,3 +22,7 @@ func (b Bitmap) Load(filename string) error {
     b.data = make([]byte, b.size)
     return nil
 }
+
+func (b Bitmap) Size() int64 {
+    return b.size
+}
